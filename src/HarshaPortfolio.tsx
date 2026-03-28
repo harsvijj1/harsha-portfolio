@@ -29,6 +29,7 @@ const Portfolio: React.FC = () => {
   const resumeData = {
     name: "Harsha Srikanth Karna",
     role: "Principal Member – Development Lead",
+    profileImage: process.env.PUBLIC_URL + "/harsha.png",
     contact: {
       email: "hars_vijj@yahoo.co.in",
       phone: "+1 (929) 465 5547",
@@ -105,10 +106,31 @@ const Portfolio: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col lg:flex-row font-sans text-slate-900">
       {/* Sidebar */}
-      <aside className="w-full lg:w-80 bg-slate-900 text-white p-8 lg:sticky lg:top-0 lg:h-screen shadow-xl">
-        <div className="mb-10">
-          <h1 className="text-2xl font-extrabold tracking-tight">{resumeData.name}</h1>
-          <p className="text-blue-400 font-medium mt-1">{resumeData.role}</p>
+      <aside className="w-full lg:w-80 bg-slate-900 text-white p-8 lg:sticky lg:top-0 lg:h-screen shadow-xl overflow-y-auto">
+        <div className="mb-8 flex flex-col items-center">
+          {/* PROFILE IMAGE SECTION WITH INITIAL ZOOM */}
+          <div className="mb-6 flex justify-center lg:justify-start">
+            <div className="relative group w-32 h-32 overflow-hidden rounded-2xl border-4 border-slate-800 shadow-2xl bg-slate-800">
+              <img
+                src={resumeData.profileImage}
+                alt={resumeData.name}
+                /* 'scale-110' sets the initial slight zoom. 
+                   'group-hover:scale-125' zooms it in further on hover.
+                   Use 'group-hover:scale-100' instead if you want it to zoom OUT on hover.
+                */
+                className="w-full h-full object-cover transform scale-110 transition-transform duration-700 ease-in-out group-hover:scale-125"
+                onError={(e) => {
+                  e.currentTarget.src = `https://ui-avatars.com/api/?name=Harsha+Karna&background=2563eb&color=fff&size=128`;
+                }}
+              />
+
+              {/* Subtle gradient overlay to make the image blend with the dark sidebar */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-60" />
+            </div>
+          </div>
+
+          <h1 className="text-2xl font-extrabold tracking-tight text-center">{resumeData.name}</h1>
+          <p className="text-blue-400 font-medium mt-1 text-center">{resumeData.role}</p>
         </div>
 
         <div className="space-y-4 mb-10 text-sm">
